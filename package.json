@@ -1,0 +1,33 @@
+{
+  "name": "realworld-nuxtjs",
+  "version": "1.0.0",
+  "description": "realworld,nuxtjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "nuxt",
+    "lint": "eslint --ext .ts,.js,.vue ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/458366075/-realworld-nuxtjs.git"
+  },
+  "keywords": [
+    "realworld",
+    "nuxtjs"
+  ],
+  "author": "cong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/458366075/-realworld-nuxtjs/issues"
+  },
+  "homepage": "https://github.com/458366075/-realworld-nuxtjs#readme",
+  "dependencies": {
+    "axios": "^0.25.0",
+    "nuxt": "^2.15.8"
+  },
+  "devDependencies": {
+    "@nuxt/types": "^2.15.8",
+    "@nuxt/typescript-build": "^2.1.0",
+    "@nuxtjs/eslint-config-typescript": "^8.0.0"
+  }
+}
