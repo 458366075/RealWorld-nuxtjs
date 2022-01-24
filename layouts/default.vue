@@ -11,32 +11,36 @@
               Home
             </n-link>
           </li>
-          <li class="nav-item">
-            <n-link class="nav-link" to="" active-class="active" exact>
-              <i class="ion-compose" />&nbsp;New Article
-            </n-link>
-          </li>
-          <li class="nav-item">
-            <n-link class="nav-link" to="/settings" active-class="active" exact>
-              <i class="ion-gear-a" />&nbsp;Settings
-            </n-link>
-          </li>
-          <li class="nav-item">
-            <n-link class="nav-link" to="/login" active-class="active" exact>
-              Sign in
-            </n-link>
-          </li>
-          <li class="nav-item">
-            <n-link class="nav-link" to="/register" active-class="active" exact>
-              Sign up
-            </n-link>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link ng-binding active" ui-sref-active="active" href="#/@cong">
-              <img class="user-pic" ng-src="https://api.realworld.io/images/smiley-cyrus.jpeg" src="https://api.realworld.io/images/smiley-cyrus.jpeg">
-              cong
-            </a>
-          </li>
+          <template v-if="$store.state.user.user">
+            <li class="nav-item">
+              <n-link class="nav-link" to="" active-class="active" exact>
+                <i class="ion-compose" />&nbsp;New Article
+              </n-link>
+            </li>
+            <li class="nav-item">
+              <n-link class="nav-link" to="/settings" active-class="active" exact>
+                <i class="ion-gear-a" />&nbsp;Settings
+              </n-link>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link ng-binding active" ui-sref-active="active" href="#/@cong">
+                <img class="user-pic" ng-src="https://api.realworld.io/images/smiley-cyrus.jpeg" src="https://api.realworld.io/images/smiley-cyrus.jpeg">
+                cong
+              </a>
+            </li>
+          </template>
+          <template v-else>
+            <li class="nav-item">
+              <n-link class="nav-link" to="/login" active-class="active" exact>
+                Sign in
+              </n-link>
+            </li>
+            <li class="nav-item">
+              <n-link class="nav-link" to="/register" active-class="active" exact>
+                Sign up
+              </n-link>
+            </li>
+          </template>
         </ul>
       </div>
     </nav>

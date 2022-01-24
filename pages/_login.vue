@@ -12,21 +12,21 @@
 
           <ul v-for="(value, key) in errors" :key="key" class="error-messages">
             <li v-for="item in value" :key="item">
-              {{ key + item }}
+              {{ `${key} ${item}` }}
             </li>
           </ul>
 
           <form @submit.prevent="submit">
             <fieldset v-if="!isLogin" class="form-group">
-              <input class="form-control form-control-lg" type="text" placeholder="Your Name" required>
+              <input v-model="name" class="form-control form-control-lg" type="text" placeholder="Your Name" required>
             </fieldset>
             <fieldset class="form-group">
-              <input class="form-control form-control-lg" type="email" placeholder="Email" required>
+              <input v-model="email" class="form-control form-control-lg" type="email" placeholder="Email" required>
             </fieldset>
             <fieldset class="form-group">
-              <input class="form-control form-control-lg" type="password" placeholder="Password" required>
+              <input v-model="password" class="form-control form-control-lg" type="password" placeholder="Password" required>
             </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right">
+            <button class="btn btn-lg btn-primary pull-xs-right" formType="submit">
               {{ showTitle }}
             </button>
           </form>
@@ -36,32 +36,59 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
   name: 'PageLogin',
-  validate ({ params }) {
-    return ['login', 'register'].includes(params.login)
+  // middleware: 'auth',
+  validate ({ params: { login } }) {
+    return ['login', 'register'].includes(login)
   },
   data () {
     return {
-      errors: {}
+      name: '',
+      email: '',
+      password: '',
+      errors: {},
+    }
+  },
+  head () {
+    return {
+      title: `${this.$route.params.login} - conduit`
     }
   },
   computed: {
-    isLogin () {
+    isLogin (): boolean {
       return this.$route.params.login === 'login'
     },
-    showTitle () {
+    showTitle (): string {
       return this.isLogin ? 'Sign in' : 'Sign up'
     }
   },
   methods: {
     async submit () {
-      const res = await loginApi()
-      console.log(res)
+      try {
+        await this.$store.dispatch(
+          this.isLogin ? 'user/requestLogin' : 'user/requestRegister',
+          this.isLogin
+            ? {
+                email: this.email,
+                password: this.password,
+              }
+            : {
+                email: this.email,
+                password: this.password,
+                username: this.name,
+              }
+        )
+        this.$router.replace('/')
+      } catch (err: any) {
+        this.errors = err.response.data.errors
+      }
     }
   }
-}
+})
 </script>
 
 <style scoped>

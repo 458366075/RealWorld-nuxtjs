@@ -3,7 +3,7 @@ export default {
   typescript: {
     typeCheck: {
       eslint: {
-        files: './**/*.{ts,vue}'
+        files: './**/*.{js.ts,vue}'
       }
     }
   },
