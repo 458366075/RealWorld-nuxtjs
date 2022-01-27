@@ -4,7 +4,9 @@
   "description": "realworld,nuxtjs",
   "main": "index.js",
   "scripts": {
-    "start": "nuxt",
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
     "lint": "eslint --ext .ts,.js,.vue ."
   },
   "repository": {
