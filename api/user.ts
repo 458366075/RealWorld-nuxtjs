@@ -1,10 +1,8 @@
-import { AxiosPromise } from 'axios'
-import { LoginUserParams, RegisterUserParams, UserType } from './user.d'
-
+import { LoginUserParams, RegisterUserParams, UserResponse, UserType } from './user.d'
 import { request } from '@/plugins/request'
 
-export const loginApi = (data: LoginUserParams): AxiosPromise<UserType> => {
-  return request({
+export const loginApi = (data: LoginUserParams) => {
+  return request<UserResponse>({
     method: 'POST',
     url: '/users/login',
     data: {
@@ -13,10 +11,20 @@ export const loginApi = (data: LoginUserParams): AxiosPromise<UserType> => {
   })
 }
 
-export const registerApi = (data: RegisterUserParams): AxiosPromise<UserType> => {
-  return request({
+export const registerApi = (data: RegisterUserParams) => {
+  return request<UserResponse>({
     method: 'POST',
-    url: '/users/register',
+    url: '/users',
+    data: {
+      user: data
+    },
+  })
+}
+
+export const userEditApi = (data: UserType) => {
+  return request<UserResponse>({
+    method: 'PUT',
+    url: '/user',
     data: {
       user: data
     },

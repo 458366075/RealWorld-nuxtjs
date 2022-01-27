@@ -7,7 +7,9 @@
             {{ showTitle }}
           </h1>
           <p class="text-xs-center">
-            <a href="">{{ isLogin ? 'Need an account?' : 'Have an account?' }}</a>
+            <n-link :to="isLoginPage ? '/register' : '/login'">
+              {{ isLoginPage ? 'Need an account?' : 'Have an account?' }}
+            </n-link>
           </p>
 
           <ul v-for="(value, key) in errors" :key="key" class="error-messages">
@@ -17,16 +19,37 @@
           </ul>
 
           <form @submit.prevent="submit">
-            <fieldset v-if="!isLogin" class="form-group">
-              <input v-model="name" class="form-control form-control-lg" type="text" placeholder="Your Name" required>
+            <fieldset v-if="!isLoginPage" class="form-group">
+              <input
+                v-model="name"
+                v-loading="loading"
+                class="form-control form-control-lg"
+                type="text"
+                placeholder="Your Name"
+                required
+              >
             </fieldset>
             <fieldset class="form-group">
-              <input v-model="email" class="form-control form-control-lg" type="email" placeholder="Email" required>
+              <input
+                v-model="email"
+                v-loading="loading"
+                class="form-control form-control-lg"
+                type="email"
+                placeholder="Email"
+                required
+              >
             </fieldset>
             <fieldset class="form-group">
-              <input v-model="password" class="form-control form-control-lg" type="password" placeholder="Password" required>
+              <input
+                v-model="password"
+                v-loading="loading"
+                class="form-control form-control-lg"
+                type="password"
+                placeholder="Password"
+                required
+              >
             </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right" formType="submit">
+            <button v-loading="loading" class="btn btn-lg btn-primary pull-xs-right" formType="submit">
               {{ showTitle }}
             </button>
           </form>
@@ -51,27 +74,29 @@ export default Vue.extend({
       email: '',
       password: '',
       errors: {},
+      loading: false,
     }
   },
   head () {
     return {
-      title: `${this.$route.params.login} - conduit`
+      title: `${this.$route.params.login} - Conduit`
     }
   },
   computed: {
-    isLogin (): boolean {
+    isLoginPage (): boolean {
       return this.$route.params.login === 'login'
     },
     showTitle (): string {
-      return this.isLogin ? 'Sign in' : 'Sign up'
+      return this.isLoginPage ? 'Sign in' : 'Sign up'
     }
   },
   methods: {
     async submit () {
       try {
+        this.loading = true
         await this.$store.dispatch(
-          this.isLogin ? 'user/requestLogin' : 'user/requestRegister',
-          this.isLogin
+          this.isLoginPage ? 'user/login' : 'user/register',
+          this.isLoginPage
             ? {
                 email: this.email,
                 password: this.password,
@@ -86,6 +111,7 @@ export default Vue.extend({
       } catch (err: any) {
         this.errors = err.response.data.errors
       }
+      this.loading = false
     }
   }
 })

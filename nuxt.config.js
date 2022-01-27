@@ -7,6 +7,13 @@ export default {
       }
     }
   },
-  plugins: ['~/plugins/request'],
+  plugins: [
+    '~/plugins/directive',
+    '~/plugins/request',
+    '~/plugins/filters',
+  ],
   link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+  head: {
+    title: 'Conduit'
+  }
 }

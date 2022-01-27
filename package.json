@@ -23,6 +23,8 @@
   "homepage": "https://github.com/458366075/-realworld-nuxtjs#readme",
   "dependencies": {
     "axios": "^0.25.0",
+    "cookieparser": "^0.1.0",
+    "dayjs": "^1.10.7",
     "js-cookie": "^3.0.1",
     "nuxt": "^2.15.8"
   },
