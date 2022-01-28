@@ -15,5 +15,9 @@ export default {
   link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   head: {
     title: 'Conduit'
+  },
+  server: {
+    port: 80,
+    host: '0.0.0.0'
   }
 }
